@@ -1,0 +1,5 @@
+syntax: glob
+.vs/ConsoleBoard/v14/.suo
+packages/**
+**/obj/
+**/bin/

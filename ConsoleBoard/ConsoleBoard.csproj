@@ -40,13 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseInterfaceElements\ConsoleFrame.cs" />
     <Compile Include="BaseInterfaceElements\Font.cs" />
     <Compile Include="BaseInterfaceElements\Indicator.cs" />
     <Compile Include="BaseInterfaceElements\Label.cs" />
     <None Include="CinematicConsole.cs" />
+    <Compile Include="BaseInterfaceElements\Panel.cs" />
     <Compile Include="BaseInterfaceElements\Table.cs" />
     <Compile Include="Exceptions\DrawException.cs" />
     <Compile Include="NewFolder1\CPoint.cs" />
+    <Compile Include="NewFolder1\CRectangle.cs" />
     <Compile Include="NewFolder1\FrameCollection.cs" />
     <Compile Include="NewFolder1\IDrawable.cs" />
     <Compile Include="NewFolder1\Frame.cs" />

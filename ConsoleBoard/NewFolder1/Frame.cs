@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using ConsoleBoard.BaseInterfaceElements;
 
 namespace ConsoleBoard.NewFolder1
 {
@@ -9,10 +10,63 @@ namespace ConsoleBoard.NewFolder1
     /// </summary>
     public abstract class Frame : IDrawable
     {
-        public virtual CPoint Position { get; set; }
-        public virtual CPoint Size { get; set; }
+        //public virtual CPoint Position { get; set; }
+        //public virtual CPoint Size { get; set; }
+        private CRectangle _relativeRelativeRect;
+        private CRectangle _absoluteRectangle;
+        public virtual CRectangle RelativeRect
+        {
+            get
+            {
 
-        public List<Frame> Elements { get; set; }
+
+                return _relativeRelativeRect;
+            }
+            set { _relativeRelativeRect = value; }
+        }
+
+        protected CRectangle AbsoluteRect => new CRectangle(RelativeRect.Position + Parent.RelativeRect.Position, RelativeRect.Width, RelativeRect.Height);
+
+        private Frame _parent;
+        
+        public virtual Frame Parent { get; set;
+            //get
+            //{
+            //    if (_parent == null)
+            //        _parent = ConsoleFrame.Current();
+            //    return _parent;
+            //}
+            //set
+            //{
+            //    if (value == null)
+            //        _parent = ConsoleFrame.Current();
+            //    else this._parent = value;
+            //}
+        }
+        public virtual FrameCollection Childrens { get; set; }
+
+
+
+        public Frame()
+        {
+            //Parent = ConsoleFrame.Current();
+            Childrens = new FrameCollection(this);
+
+            Initialize();
+        }
+        public Frame(CRectangle relativeRect, Frame parent = null)
+        {
+            RelativeRect = relativeRect;
+            Parent = parent;
+
+            if (Parent == null)
+                Parent = ConsoleFrame.Current();
+
+            Childrens = new FrameCollection(this);
+
+            Initialize();
+        }
+        
 
         /// <summary>
         /// Координаты курсора относительно правого верхнего угла элемента
@@ -20,14 +74,7 @@ namespace ConsoleBoard.NewFolder1
         protected virtual CPoint Cursor { get; set; }
 
         private CPoint GlobalCursor => new CPoint(Console.CursorLeft, Console.CursorTop);
-
-        //public event EventHandler DrawEvent = DrawEventHandler;
-
-        protected Frame()
-        {
-            Initialize();
-        }
-
+        
         /// <summary>
         /// Инициализация базовыми значениями может проивзодится здесь. Метод вызывается из базового конструктора класса
         /// </summary>
@@ -43,12 +90,12 @@ namespace ConsoleBoard.NewFolder1
         /// </summary>
         public void Clear()
         {
-            string emptyString = new string(' ', Size.X);
+            string emptyString = new string(' ', RelativeRect.Width);
 
             //Console.SetCursorPosition(Position.X, Position.Y);
-            for (int i = 0; i < Size.Y; i++)
+            for (int i = 0; i < RelativeRect.Width; i++)
             {
-                Console.SetCursorPosition(Position.X, Position.Y + i);
+                Console.SetCursorPosition(RelativeRect.Position.X, RelativeRect.Position.Y + i);
                 Console.Write(emptyString);
             }
         }
@@ -59,19 +106,28 @@ namespace ConsoleBoard.NewFolder1
         /// </summary>
         /// <param name="top">Задает смещение по длине</param>
         /// <param name="left">Задает смещение по высоте</param>
-        protected void MoveCursor(int top, int left)
+        protected void MoveCursor(CPoint point)
         {
+            int top = point.X;
+            int left = point.Y;
+
+            
+
+
             // проверка на выход из зоны элементы. Бросаем исключение? Нет, лучше обнулять текущие относительные координаты
-            if (top > Size.Y)
+            if (top > RelativeRect.Width)
                 top = 0;
-            if (left > Size.X)
+            if (left > RelativeRect.Height)
                 left = 0;
-            
-            
+
             Cursor = new CPoint(left, top);
 
+            if (Parent != null)
+                Cursor += Parent.RelativeRect.Position;
+            
+
             // результирующий курсор - сдвиг относительно верхнего левого угла элемента
-            var resultGlobalCursor = Cursor + Position;
+            var resultGlobalCursor = Cursor + RelativeRect.Position;
             Console.SetCursorPosition(resultGlobalCursor.X, resultGlobalCursor.Y);
         }
 
@@ -81,5 +137,33 @@ namespace ConsoleBoard.NewFolder1
         //}
 
         
+    }
+
+    public abstract class Frame<T> : Frame
+    {
+        public T Object { get; set; }
+
+        //public new Frame<T> Parent { get; set; }
+        //public new FrameCollection<T> Childrens { get; set; }
+
+
+        public Frame(T obj) : base()
+        {
+            Object = obj;
+        }
+
+        //public Frame() : base()
+        //{
+        //    Childrens = new FrameCollection<T>(null);
+        //    Initialize();
+        //}
+        //public Frame(CRectangle RelativeRect, Frame<T> parent = null) : base(RelativeRect, parent)
+        //{
+        //    //RelativeRect = RelativeRect;
+        //    //Parent = parent;
+        //    //Childrens = new FrameCollection(Parent);
+        //}
+
+        public abstract override void Draw();
     }
 }

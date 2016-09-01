@@ -17,6 +17,25 @@ namespace ConsoleBoardDevelop
             ConsoleTools.SetConsoleWindowPosition(0, 0);
             Console.SetWindowSize(180, 80);
 
+            var test = new TestDto()
+            {
+                SpecName = "test"
+            };
+            var testPanel = new Panel<TestDto>(test);
+            testPanel.RelativeRect = new CRectangle(10, 30, 60, 3);
+
+            var testName = new Indicator<TestDto>(test, t => t.SpecName);
+            testName.RelativeRect = new CRectangle(0, 1, 30, 1);
+            var testStatus = new Indicator<TestDto>(test, t => t.Status.ToString());
+            testStatus.RelativeRect = new CRectangle(45, 1, 10, 1);
+            var testResult = new Indicator<TestDto>(test, t => t.Result.ToString());
+            testResult.RelativeRect = new CRectangle(70, 1, 10, 1);
+
+            testPanel.Childrens.Add(testName);
+            testPanel.Childrens.Add(testStatus);
+            testPanel.Childrens.Add(testResult);
+
+            testPanel.Draw();
 
             Console.ReadKey();
         }
@@ -24,8 +43,8 @@ namespace ConsoleBoardDevelop
         private void InitialTest()
         {
             var label = new Label();
-            label.Position = new CPoint(3, 2);
-            label.Size.Y = 2;
+            label.RelativeRect.Position = new CPoint(3, 2);
+            label.RelativeRect.Width = 2;
             label.Text = "Hello World! 333333333333333333333333333333333333333333333333333333333333444444444444444444444444444444444444";
             label.Font.Background = ConsoleColor.DarkBlue;
             label.Font.TextColor = ConsoleColor.DarkGreen;
@@ -41,8 +60,9 @@ namespace ConsoleBoardDevelop
                     return new Font(ConsoleColor.DarkGreen);
                 else return new Font();
             });
-            indicator.Position = new CPoint(7, 10);
-            indicator.Size = new CPoint(10, 1);
+            indicator.RelativeRect.Position = new CPoint(7, 10);
+            indicator.RelativeRect.Width = 10;
+            indicator.RelativeRect.Height = 1;
             indicator.Draw();
 
             test.Status = TestStatus.Finished;

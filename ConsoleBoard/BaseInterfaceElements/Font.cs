@@ -17,6 +17,6 @@ namespace ConsoleBoard.BaseInterfaceElements
             Background = background;
         }
         public ConsoleColor TextColor { get; set; } = ConsoleColor.White;
-        public ConsoleColor Background { get; set; } = ConsoleColor.White;
+        public ConsoleColor Background { get; set; } = ConsoleColor.Black;
     }
 }

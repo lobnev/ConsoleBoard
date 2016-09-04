@@ -47,7 +47,7 @@ namespace ConsoleBoardDevelop
             };
             var test4 = new TestDto()
             {
-                SpecName = "test3",
+                SpecName = "test5",
                 Result = TestResult.Failed,
                 Status = TestStatus.Finished,
                 Messages = new List<MessageDto>()
@@ -62,7 +62,7 @@ namespace ConsoleBoardDevelop
             };
             var test5 = new TestDto()
             {
-                SpecName = "test3",
+                SpecName = "test6",
                 Result = TestResult.Failed,
                 Status = TestStatus.Finished,
                 Messages = new List<MessageDto>()

@@ -3,15 +3,13 @@ using ConsoleBoard.NewFolder1;
 
 namespace ConsoleBoard.BaseInterfaceElements
 {
+    /// <summary>
+    /// TODO: Описывает текущий фрейм принадлежащий консоли (надо ли?)
+    /// </summary>
     public class ConsoleFrame : Frame
     {
         private static Frame _consoleFrame {get; set; }
-
-        //private ConsoleFrame()
-        //{
-            
-        //}
-
+        
         public override void Draw()
         {
             throw new System.NotImplementedException();
@@ -22,7 +20,7 @@ namespace ConsoleBoard.BaseInterfaceElements
             if (_consoleFrame == null)
                 _consoleFrame = new ConsoleFrame()
                 {
-                    RelativeRect = new CRectangle(0, 0, Console.WindowWidth, Console.WindowHeight),
+                    Rect = new CRectangle(0, 0, Console.WindowWidth, Console.WindowHeight),
                     Parent = _consoleFrame
                 };
 

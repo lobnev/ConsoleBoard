@@ -21,7 +21,7 @@ namespace ConsoleBoard.BaseInterfaceElements
 
         protected override void Initialize()
         {
-            RelativeRect = new CRectangle(0,0,30,1);
+            Rect = new CRectangle(0,0,30,1);
         }
         
 
@@ -31,14 +31,14 @@ namespace ConsoleBoard.BaseInterfaceElements
             string textToDraw = Text;
 
             // допустимыое количество символов (включая перенос на строчки)
-            int maxTextLength = RelativeRect.Width * RelativeRect.Height;
+            int maxTextLength = Rect.Width * Rect.Height;
 
             // сравниваем количество символов, и отсекаем те - которые не влезут в допустимый прямоугольник
             if (textToDraw.Length > maxTextLength)
                 textToDraw = textToDraw.Substring(0, maxTextLength);
             
             // разбиваем фрагмент на подстроки - такой длины чтобы каждый уместился по ширине в "ячейку" (MaxLength)
-            var textInStrokes = LINQExtension.SeparateArrayToArrays(textToDraw.ToCharArray().ToList(), RelativeRect.Width);
+            var textInStrokes = LINQExtension.SeparateArrayToArrays(textToDraw.ToCharArray().ToList(), Rect.Width);
             
             MoveCursor(new CPoint(0,0));
             foreach (var textStroke in textInStrokes)
@@ -46,7 +46,7 @@ namespace ConsoleBoard.BaseInterfaceElements
                 Console.BackgroundColor = Font.Background;
                 Console.ForegroundColor = Font.TextColor;
                 Console.Write(string.Join("", textStroke));
-                MoveCursor(new CPoint(Cursor.Y + 1, 0));
+                MoveCursor(new CPoint(0, Cursor.Y + 1));
 
                 // TODO: в идеале - сбрасывать настройки цвета должна какой-то внешний объект
                 Console.ResetColor();

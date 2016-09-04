@@ -5,31 +5,36 @@ using ConsoleBoard.Exceptions;
 
 namespace ConsoleBoard.NewFolder1
 {
-    public class FrameCollection<T> : FrameCollection
-    {
-        public new Frame<T> Parent { get; set; }
-    
+    ///// <summary>
+    ///// Коллекция Фреймов
+    ///// </summary>
+    ///// <typeparam name="T"></typeparam>
+    //public class ChildrenFrameCollection<T> : ChildrenFrameCollection
+    //{
+    //    public new Frame<T> Parent { get; set; }
+        
+    //    private new List<Frame<T>> _elementCollection = new List<Frame<T>>();
 
-        private new List<Frame<T>> _elementCollection = new List<Frame<T>>();
-
-        public FrameCollection(Frame<T> parent) : base(parent)
-        {
-        }
-    }
+    //    public ChildrenFrameCollection(Frame<T> parent) : base(parent)
+    //    {
+    //    }
+    //}
 
     /// <summary>
     /// Коллекция фреймов
     /// </summary>
-    public class FrameCollection : ICollection<Frame>
+    public class ChildrenFrameCollection : ICollection<Frame>
     {
         public Frame Parent { get; set; }
 
-        public int Count { get; }
-        public bool IsReadOnly { get; }
+        public int Count => _elementCollection.Count;
+        public bool IsReadOnly { get; } = false;
 
         protected List<Frame> _elementCollection = new List<Frame>();
 
-        public FrameCollection(Frame parent)
+        public event EventHandler ElementAdded = delegate { };
+
+        public ChildrenFrameCollection(Frame parent)
         {
             Parent = parent;
         }
@@ -45,24 +50,24 @@ namespace ConsoleBoard.NewFolder1
 
         public void Add(Frame item)
         {
+            item.Parent = Parent;
+            _elementCollection.Add(item);
+
+            ElementAdded(this, EventArgs.Empty);
             //throw new NotImplementedException();
             // TODO: если элемент не влезает в родителя, то временно (и надолго =)) выбрасываем исключение
             if (true)//IsElementFitIn(Parent, item))
             {
-                item.Parent = Parent;
-
-                // 
-
-                _elementCollection.Add(item);
+                
             }
             else
                 throw new DrawException(
-                       $"Element '{item.GetType()}:{item.RelativeRect}' isn`t fit to element '{Parent.GetType()}:{item.RelativeRect}' object");
+                       $"Element '{item.GetType()}:{item.Rect}' isn`t fit to element '{Parent.GetType()}:{item.Rect}' object");
 
         }
         public void Clear()
         {
-            throw new NotImplementedException();
+            _elementCollection.Clear();
         }
         public bool Contains(Frame item)
         {
@@ -82,21 +87,22 @@ namespace ConsoleBoard.NewFolder1
 
 
         /// <summary>
-        /// Помещается ли внутренний элемент полностью в данный родительский?
+        /// TODO: Помещается ли внутренний элемент полностью в данный родительский?
         /// </summary>
         /// <param name="innerElement">внутренний элемент, </param>
         /// <returns></returns>
         private static bool IsElementFitIn(Frame parentElement, Frame innerElement)
         {
+            
             //if(parentElement == null)
 
             // определяем прямугольник родительского объекта
-            var leftTop = parentElement.RelativeRect.Position;
-            var rightBottom = parentElement.RelativeRect.RightBottom;
+            var leftTop = parentElement.Rect.Position;
+            var rightBottom = parentElement.Rect.RightBottom;
 
             // элемент помещается, если его две определяющие точки лежат внутри панели
-            if (IsPointInArea(leftTop, rightBottom, innerElement.RelativeRect.Position)
-                && IsPointInArea(leftTop, rightBottom, innerElement.RelativeRect.RightBottom))
+            if (IsPointInArea(leftTop, rightBottom, innerElement.Rect.Position)
+                && IsPointInArea(leftTop, rightBottom, innerElement.Rect.RightBottom))
                 return true;
 
             return false;

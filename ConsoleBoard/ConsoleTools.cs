@@ -6,8 +6,7 @@ namespace ConsoleBoard
     public class ConsoleTools
     {
         const int SWP_NOSIZE = 0x0001;
-
-
+        
         [DllImport("kernel32.dll", ExactSpelling = true)]
         private static extern IntPtr GetConsoleWindow();
 

@@ -2,9 +2,13 @@
 {
     public class CRectangle
     {
-        public CPoint Position { get; set; }
-        public int Width { get; set; }
-        public int Height { get; set; }
+        public CPoint Position { get; set; } = new CPoint(0,0);
+        public int Width { get; set; } = 0;
+        public int Height { get; set; } = 0;
+
+        public CRectangle()
+        {
+        }
 
         public CRectangle(CPoint position, int width, int height)
         {

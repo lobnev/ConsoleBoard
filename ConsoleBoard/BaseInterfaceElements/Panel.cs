@@ -1,17 +1,14 @@
-﻿using ConsoleBoard.NewFolder1;
+﻿using System;
+using System.Linq;
+using ConsoleBoard.NewFolder1;
 
 namespace ConsoleBoard.BaseInterfaceElements
 {
     public class Panel<T> : Frame<T>
     {
-        //public T Object { get; set; }
-
-        //public List<Frame> Childrens { get; set; }
-        
-
         public override void Draw()
         {
-            foreach (var el in Childrens)
+            foreach (var el in Children)
             {
                 // забиваем хер, на то что они могут перекрывать друг друга
                 el.Draw();
@@ -21,6 +18,12 @@ namespace ConsoleBoard.BaseInterfaceElements
 
         public Panel(T obj) : base(obj)
         {
+            this.Children.ElementAdded += ChildrenAddedHandler;
+        }
+
+        private void ChildrenAddedHandler(object sender, EventArgs e)
+        {
+            this.Rect.Height = Children.Max(ch => ch.Rect.Height);
         }
     }
 }

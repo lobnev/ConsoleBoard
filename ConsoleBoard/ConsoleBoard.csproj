@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseInterfaceElements\Board.cs" />
     <Compile Include="BaseInterfaceElements\ConsoleFrame.cs" />
     <Compile Include="Exceptions\TableConstructionException.cs" />
     <Compile Include="Helpers\Font.cs" />
@@ -51,7 +52,7 @@
     <Compile Include="Exceptions\DrawException.cs" />
     <Compile Include="Helpers\CPoint.cs" />
     <Compile Include="Helpers\CRectangle.cs" />
-    <Compile Include="Frame\ChildrenFrameCollection.cs" />
+    <Compile Include="Frame\Content.cs" />
     <Compile Include="Frame\IDrawable.cs" />
     <Compile Include="Frame\Frame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

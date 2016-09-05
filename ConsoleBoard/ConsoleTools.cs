@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using ConsoleBoard.Helpers;
 
 namespace ConsoleBoard
 {
@@ -25,6 +26,18 @@ namespace ConsoleBoard
         public static void SetConsoleWindowPosition(int left, int top)
         {
             SetWindowPos(MyConsole, 0, left, top, 0, 0, SWP_NOSIZE);
+        }
+
+        public static CRectangle SetConsoleWindowSize(int width, int height)
+        {
+            if (width > Console.LargestWindowWidth)
+                width = Console.LargestWindowWidth;
+            if (height > Console.LargestWindowHeight)
+                height = Console.LargestWindowHeight;
+
+            Console.SetWindowSize(width, height);
+
+            return new CRectangle(0, 0, width, height);
         }
     }
 }

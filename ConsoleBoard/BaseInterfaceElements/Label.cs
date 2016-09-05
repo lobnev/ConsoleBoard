@@ -30,6 +30,9 @@ namespace ConsoleBoard.BaseInterfaceElements
             // полный текст фрагмента
             string textToDraw = Text;
 
+            if (textToDraw == null)
+                textToDraw = "";
+
             // допустимыое количество символов (включая перенос на строчки)
             int maxTextLength = Rect.Width * Rect.Height;
 

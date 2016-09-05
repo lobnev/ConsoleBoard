@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ConsoleBoard;
 using ConsoleBoard.BaseInterfaceElements;
-using ConsoleBoard.NewFolder1;
+using ConsoleBoard.Helpers;
 using iXenter.DTO;
 
 namespace ConsoleBoardDevelop
@@ -16,20 +16,24 @@ namespace ConsoleBoardDevelop
         {
             ConsoleTools.SetConsoleWindowPosition(0, 0);
             Console.SetWindowSize(180, 80);
+            
+            // TODO: задача размеров через проценты
+            // TODO: возможность обновлять элемент отдельно. Когда они все обновляются консоль как попрыгайчик выглядит
 
-            var tests = Tools.GetTestTestList();
+            var tests = new List<TestDto>();
 
+            var sampleTest = new TestDto();
             // создаем модель строки
-            var rowModel = new Panel<TestDto>(tests[0]);
+            var rowModel = new Panel<TestDto>(sampleTest);
             rowModel.Rect = new CRectangle(0, 0, 60, 3);
 
-            var testName = new Indicator<TestDto>(tests[0], t => t.SpecName);
+            var testName = new Indicator<TestDto>(sampleTest, t => t.SpecName);
             testName.Rect = new CRectangle(0, 1, 25, 1);
-            var testMessage = new Indicator<TestDto>(tests[0], t => t.Messages.LastOrDefault().Text);
+            var testMessage = new Indicator<TestDto>(sampleTest, t => t.Messages.LastOrDefault().Text);
             testMessage.Rect = new CRectangle(30, 1, 60, 3);
-            var testStatus = new Indicator<TestDto>(tests[0], t => t.Status.ToString());
+            var testStatus = new Indicator<TestDto>(sampleTest, t => t.Status.ToString());
             testStatus.Rect = new CRectangle(115, 1, 10, 1);
-            var testResult = new Indicator<TestDto>(tests[0], t => t.Result.ToString());
+            var testResult = new Indicator<TestDto>(sampleTest, t => t.Result.ToString());
             testResult.Rect = new CRectangle(130, 1, 10, 1);
 
             rowModel.Children.Add(testName);
@@ -37,10 +41,14 @@ namespace ConsoleBoardDevelop
             rowModel.Children.Add(testStatus);
             rowModel.Children.Add(testResult);
             
+            // TODO: проблема в том, что если сунуть пустой массив, то при его изменении, внутренний объхект Objects таблицы не изменяется. Надо разобраться с этим.
 
             // создаем таблицу
             var table = new Table<TestDto>(tests, rowModel, new List<string>() {"Spec name", "Message", "Staus", "Result"});
+            table.Rect.Position = new CPoint(0,15);
 
+            tests = Tools.GetTestTestList();
+            table.SetObjectLists(tests);
             table.Draw();
 
             Console.ReadKey();

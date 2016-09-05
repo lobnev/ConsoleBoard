@@ -28,6 +28,10 @@ namespace ConsoleBoard.BaseInterfaceElements
         /// </summary>
         private Panel<T> RowModel { get; set; }
 
+        public int RowDistance { get; set; }
+
+        private List<string> HeaderStrings { get; set; } 
+
         /// <summary>
         /// 
         /// </summary>
@@ -37,12 +41,14 @@ namespace ConsoleBoard.BaseInterfaceElements
         public Table(List<T> objects, Panel<T> rowModel, List<string> header, int rowDistance = 1)
         {
             Objects = objects;
+            this.HeaderStrings = header;
+            this.RowDistance = rowDistance;
             this.RowModel = rowModel;
             this.Rect = new CRectangle(0,0, RowModel.Rect.Width, rowModel.Rect.Height * (objects.Count + 1));
 
             
-            Rows = ConstructRowsFromModel(this, RowModel, Objects, rowDistance);
-            Header = ConstructHeader(this, RowModel, header);
+            Rows = ConstructRowsFromModel(this, RowModel, Objects, RowDistance);
+            Header = ConstructHeader(this, RowModel, HeaderStrings);
         }
 
         /// <summary>
@@ -122,11 +128,23 @@ namespace ConsoleBoard.BaseInterfaceElements
             return result;
         }
 
+        public void SetObjectLists(List<T> objectsToDraw)
+        {
+            Objects = objectsToDraw;
+            this.Rect = new CRectangle(Rect.Position.X, Rect.Position.Y, RowModel.Rect.Width, RowModel.Rect.Height * (objectsToDraw.Count + 1));
+
+
+            Rows = ConstructRowsFromModel(this, RowModel, Objects, RowDistance);
+            Header = ConstructHeader(this, RowModel, HeaderStrings);
+        }
+
         public override void Draw()
         {
             //throw new System.NotImplementedException();
             Header.Draw();
             //Rows.ForEach(r => r.Draw());
+
+            var amount = this.Objects.Count;
 
             foreach (var row in Rows)
             {

@@ -58,9 +58,10 @@ namespace ConsoleBoard.Frame
         /// <summary>
         /// Коллекция дочерних фреймов
         /// </summary>
-        public virtual ChildrenFrameCollection Children { get; set; }
+        public virtual Content Children { get; set; }
 
         /// <summary>
+        /// TODO: их надо высчитывать а не хранить
         /// Координаты курсора относительно правого верхнего угла элемента
         /// </summary>
         protected virtual CPoint Cursor { get; set; }
@@ -72,7 +73,7 @@ namespace ConsoleBoard.Frame
 
         public Frame()
         {
-            Children = new ChildrenFrameCollection(this);
+            Children = new Content(this);
 
             Initialize();
         }
@@ -84,11 +85,17 @@ namespace ConsoleBoard.Frame
         {
             
         }
-        
+
         /// <summary>
         /// Отрисовка элемента
         /// </summary>
-        public abstract void Draw();
+        public virtual void Draw()
+        {
+            foreach (var child in Children)
+            {
+                child.Draw();
+            }
+        }
 
         /// <summary>
         /// Очищает область элемента

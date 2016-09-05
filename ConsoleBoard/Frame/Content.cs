@@ -24,7 +24,7 @@ namespace ConsoleBoard.Frame
     /// <summary>
     /// Коллекция фреймов
     /// </summary>
-    public class ChildrenFrameCollection : ICollection<Frame>
+    public class Content : ICollection<Frame>
     {
         public Frame Parent { get; set; }
 
@@ -35,7 +35,7 @@ namespace ConsoleBoard.Frame
 
         public event EventHandler ElementAdded = delegate { };
 
-        public ChildrenFrameCollection(Frame parent)
+        public Content(Frame parent)
         {
             Parent = parent;
         }

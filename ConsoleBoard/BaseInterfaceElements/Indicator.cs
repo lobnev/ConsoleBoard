@@ -1,5 +1,5 @@
 ﻿using System;
-using ConsoleBoard.NewFolder1;
+using ConsoleBoard.Helpers;
 
 namespace ConsoleBoard.BaseInterfaceElements
 {

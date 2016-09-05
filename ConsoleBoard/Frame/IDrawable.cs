@@ -1,4 +1,4 @@
-﻿namespace ConsoleBoard.NewFolder1
+﻿namespace ConsoleBoard.Frame
 {
     public interface IDrawable
     {

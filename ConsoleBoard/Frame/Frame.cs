@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using ConsoleBoard.BaseInterfaceElements;
+using ConsoleBoard.Helpers;
 
-namespace ConsoleBoard.NewFolder1
+namespace ConsoleBoard.Frame
 {
     /// <summary>
     /// Объект вмещающий объект интерфейса, который имеет прикрепленную к нему модель данных

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization;
 using ConsoleBoard.Exceptions;
-using ConsoleBoard.NewFolder1;
+using ConsoleBoard.Frame;
+using ConsoleBoard.Helpers;
 
 namespace ConsoleBoard.BaseInterfaceElements
 {
-    public class Table<T> : Frame
+    public class Table<T> : Frame.Frame
     {
         public List<T> Objects { get; set; }
 
@@ -50,7 +51,7 @@ namespace ConsoleBoard.BaseInterfaceElements
         /// <param name="rowModel"></param>
         /// <param name="header"></param>
         /// <returns></returns>
-        private static Panel<T> ConstructHeader(Frame parent, Panel<T> rowModel, List<string> header)
+        private static Panel<T> ConstructHeader(Frame.Frame parent, Panel<T> rowModel, List<string> header)
         {
             if (rowModel.Children.Count != header.Count)
                 throw new TableConstructionException(
@@ -77,7 +78,7 @@ namespace ConsoleBoard.BaseInterfaceElements
         /// <param name="model"></param>
         /// <param name="objects"></param>
         /// <returns></returns>
-        private static List<Panel<T>> ConstructRowsFromModel(Frame parent, Panel<T> model, List<T> objects, int rowDistance)
+        private static List<Panel<T>> ConstructRowsFromModel(Frame.Frame parent, Panel<T> model, List<T> objects, int rowDistance)
         {
             int currentTop = model.Rect.Height;
             var result = new List<Panel<T>>();
@@ -108,7 +109,7 @@ namespace ConsoleBoard.BaseInterfaceElements
                         else property.SetValue(childCopy, childPropertyValue);
                     }
 
-                    objPanel.Children.Add((Frame) childCopy);
+                    objPanel.Children.Add((Frame.Frame) childCopy);
                 }
 
                 //if (previosRow != null)

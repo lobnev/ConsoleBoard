@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleBoard.BaseInterfaceElements
+namespace ConsoleBoard.Helpers
 {
     public class Font
     {

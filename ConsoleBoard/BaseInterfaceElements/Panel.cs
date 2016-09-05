@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using ConsoleBoard.NewFolder1;
+using ConsoleBoard.Frame;
 
 namespace ConsoleBoard.BaseInterfaceElements
 {

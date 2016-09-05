@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using ConsoleBoard.Exceptions;
+using ConsoleBoard.Helpers;
 
-namespace ConsoleBoard.NewFolder1
+namespace ConsoleBoard.Frame
 {
     ///// <summary>
     ///// Коллекция Фреймов

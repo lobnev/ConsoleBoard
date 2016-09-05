@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using ConsoleBoard.NewFolder1;
+using ConsoleBoard.Helpers;
 using Pie;
 
 namespace ConsoleBoard.BaseInterfaceElements
 {
-    public class Label : Frame
+    public class Label : Frame.Frame
     {
         public string Text { get; set; }
         public Font Font { get; set; } = new Font();

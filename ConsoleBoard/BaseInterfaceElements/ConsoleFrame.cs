@@ -1,21 +1,21 @@
 ﻿using System;
-using ConsoleBoard.NewFolder1;
+using ConsoleBoard.Helpers;
 
 namespace ConsoleBoard.BaseInterfaceElements
 {
     /// <summary>
     /// TODO: Описывает текущий фрейм принадлежащий консоли (надо ли?)
     /// </summary>
-    public class ConsoleFrame : Frame
+    public class ConsoleFrame : Frame.Frame
     {
-        private static Frame _consoleFrame {get; set; }
+        private static Frame.Frame _consoleFrame {get; set; }
         
         public override void Draw()
         {
             throw new System.NotImplementedException();
         }
 
-        public static Frame Current()
+        public static Frame.Frame Current()
         {
             if (_consoleFrame == null)
                 _consoleFrame = new ConsoleFrame()

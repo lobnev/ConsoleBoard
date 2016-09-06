@@ -7,6 +7,11 @@ namespace ConsoleBoard.BaseInterfaceElements
 {
     public class Label : Frame.Frame
     {
+        /// <summary>
+        /// Содержит текст нарисованный в прошлый раз. Если он совпадает с текущим перерисвоки не будет
+        /// </summary>
+        protected string _previousText { get; set; }
+
         public string Text { get; set; }
         public Font Font { get; set; } = new Font();
 
@@ -29,6 +34,10 @@ namespace ConsoleBoard.BaseInterfaceElements
         {
             // полный текст фрагмента
             string textToDraw = Text;
+
+            if (textToDraw == _previousText)
+                return;
+            else _previousText = textToDraw;
 
             if (textToDraw == null)
                 textToDraw = "";

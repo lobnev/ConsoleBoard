@@ -58,7 +58,7 @@ namespace ConsoleBoard.Frame
         /// <summary>
         /// Коллекция дочерних фреймов
         /// </summary>
-        public virtual Content Children { get; set; }
+        public virtual Content Content { get; set; }
 
         /// <summary>
         /// TODO: их надо высчитывать а не хранить
@@ -73,7 +73,7 @@ namespace ConsoleBoard.Frame
 
         public Frame()
         {
-            Children = new Content(this);
+            Content = new Content(this);
 
             Initialize();
         }
@@ -91,7 +91,7 @@ namespace ConsoleBoard.Frame
         /// </summary>
         public virtual void Draw()
         {
-            foreach (var child in Children)
+            foreach (var child in Content)
             {
                 child.Draw();
             }

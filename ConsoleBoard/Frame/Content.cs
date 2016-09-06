@@ -22,7 +22,7 @@ namespace ConsoleBoard.Frame
     //}
 
     /// <summary>
-    /// Коллекция фреймов
+    /// Коллекция фреймов - контент какого-либо фрейма
     /// </summary>
     public class Content : ICollection<Frame>
     {

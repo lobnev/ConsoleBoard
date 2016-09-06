@@ -16,12 +16,12 @@ namespace ConsoleBoard.BaseInterfaceElements
         /// <summary>
         /// Заголовок таблицы
         /// </summary>
-        public Panel<T> Header { get; set; }
+        //public Panel<T> Header { get; set; }
 
         /// <summary>
         /// Строки таблицы
         /// </summary>
-        public List<Panel<T>> Rows { get; set; }
+        //public List<Panel<T>> Rows { get; set; }
 
         /// <summary>
         /// Модель строки
@@ -47,8 +47,14 @@ namespace ConsoleBoard.BaseInterfaceElements
             this.Rect = new CRectangle(0,0, RowModel.Rect.Width, rowModel.Rect.Height * (objects.Count + 1));
 
             
-            Rows = ConstructRowsFromModel(this, RowModel, Objects, RowDistance);
-            Header = ConstructHeader(this, RowModel, HeaderStrings);
+            var rows = ConstructRowsFromModel(this, RowModel, Objects, RowDistance);
+            var Header = ConstructHeader(this, RowModel, HeaderStrings);
+
+            Content.Add(Header);
+            foreach (var row in rows)
+            {
+                Content.Add(row);
+            }
         }
 
         /// <summary>
@@ -59,19 +65,19 @@ namespace ConsoleBoard.BaseInterfaceElements
         /// <returns></returns>
         private static Panel<T> ConstructHeader(Frame.Frame parent, Panel<T> rowModel, List<string> header)
         {
-            if (rowModel.Children.Count != header.Count)
+            if (rowModel.Content.Count != header.Count)
                 throw new TableConstructionException(
-                    $"Row model children count ({rowModel.Children.Count}) is not equla to header count ({header.Count})");
+                    $"Row model children count ({rowModel.Content.Count}) is not equla to header count ({header.Count})");
 
             var headerPanel = new Panel<T>(default(T));
             headerPanel.Rect = new CRectangle(0, 0, rowModel.Rect.Width, rowModel.Rect.Height);
             headerPanel.Parent = parent;
 
-            for (int i = 0; i < rowModel.Children.Count; i++)
+            for (int i = 0; i < rowModel.Content.Count; i++)
             {
                 var headerCell = new Label(header[i]);
-                headerCell.Rect = rowModel.Children.ElementAt(i).Rect;
-                headerPanel.Children.Add(headerCell);
+                headerCell.Rect = rowModel.Content.ElementAt(i).Rect;
+                headerPanel.Content.Add(headerCell);
             }
 
             return headerPanel;
@@ -99,7 +105,7 @@ namespace ConsoleBoard.BaseInterfaceElements
                 objPanel.Parent = parent;
 
                 // смотрим все дочерние объекты модели и присваиваем им объект для отображения
-                foreach (var child in model.Children)
+                foreach (var child in model.Content)
                 {
                     // создаем копию объекта
                     var childType = child.GetType();
@@ -115,7 +121,7 @@ namespace ConsoleBoard.BaseInterfaceElements
                         else property.SetValue(childCopy, childPropertyValue);
                     }
 
-                    objPanel.Children.Add((Frame.Frame) childCopy);
+                    objPanel.Content.Add((Frame.Frame) childCopy);
                 }
 
                 //if (previosRow != null)
@@ -133,23 +139,33 @@ namespace ConsoleBoard.BaseInterfaceElements
             Objects = objectsToDraw;
             this.Rect = new CRectangle(Rect.Position.X, Rect.Position.Y, RowModel.Rect.Width, RowModel.Rect.Height * (objectsToDraw.Count + 1));
 
+            Content.Clear();
 
-            Rows = ConstructRowsFromModel(this, RowModel, Objects, RowDistance);
-            Header = ConstructHeader(this, RowModel, HeaderStrings);
-        }
+            var rows = ConstructRowsFromModel(this, RowModel, Objects, RowDistance);
+            var Header = ConstructHeader(this, RowModel, HeaderStrings);
 
-        public override void Draw()
-        {
-            //throw new System.NotImplementedException();
-            Header.Draw();
-            //Rows.ForEach(r => r.Draw());
-
-            var amount = this.Objects.Count;
-
-            foreach (var row in Rows)
+            Content.Add(Header);
+            foreach (var row in rows)
             {
-                row.Draw();
+                Content.Add(row);
             }
         }
+
+        //public override void Draw()
+        //{
+        //    //throw new System.NotImplementedException();
+        //    //Header.Draw();
+        //    //Rows.ForEach(r => r.Draw());
+
+        //    //var amount = this.Objects.Count;
+
+        //    //foreach (var row in Rows)
+        //    //{
+        //    //    row.Draw();
+        //    //}
+
+        //    base.Draw();
+        //}
+
     }
 }

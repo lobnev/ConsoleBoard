@@ -65,7 +65,7 @@ namespace ConsoleBoard.BaseInterfaceElements
         {
             base.Text = this.Text(Object);
             base.Font = this.Font(Object);
-            Clear();
+            //Clear();
             base.Draw();
         }
     }

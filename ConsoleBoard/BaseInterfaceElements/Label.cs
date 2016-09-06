@@ -42,6 +42,8 @@ namespace ConsoleBoard.BaseInterfaceElements
             if (textToDraw == null)
                 textToDraw = "";
 
+            //Clear();
+
             // допустимыое количество символов (включая перенос на строчки)
             int maxTextLength = Rect.Width * Rect.Height;
 
@@ -49,10 +51,18 @@ namespace ConsoleBoard.BaseInterfaceElements
             if (textToDraw.Length > maxTextLength)
                 textToDraw = textToDraw.Substring(0, maxTextLength);
             
+            // HACK: если символов меньше - дополняем пробелами до мксимально возможной емкости (пока есть непонятный баг с методом Clear)
+            if (textToDraw.Length < maxTextLength)
+            {
+                int spaceAmount = maxTextLength - textToDraw.Length;
+                string spaceString = new string(' ', spaceAmount);
+                textToDraw += spaceString;
+            }
+
             // разбиваем фрагмент на подстроки - такой длины чтобы каждый уместился по ширине в "ячейку" (MaxLength)
             var textInStrokes = LINQExtension.SeparateArrayToArrays(textToDraw.ToCharArray().ToList(), Rect.Width);
             
-            MoveCursor(new CPoint(0,0));
+           MoveCursor(new CPoint(0,0));
             foreach (var textStroke in textInStrokes)
             {
                 Console.BackgroundColor = Font.Background;

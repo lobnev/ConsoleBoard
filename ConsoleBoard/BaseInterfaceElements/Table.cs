@@ -40,21 +40,23 @@ namespace ConsoleBoard.BaseInterfaceElements
         /// <param name="rowWidth">Ширина строки. Если ноль, строка занимает всю консоль</param>
         public Table(List<T> objects, Panel<T> rowModel, List<string> header, int rowDistance = 1)
         {
-            Objects = objects;
+            //Objects = objects;
             this.HeaderStrings = header;
             this.RowDistance = rowDistance;
             this.RowModel = rowModel;
-            this.Rect = new CRectangle(0,0, RowModel.Rect.Width, rowModel.Rect.Height * (objects.Count + 1));
+            //this.Rect = new CRectangle(0,0, RowModel.Rect.Width, rowModel.Rect.Height * (objects.Count + 1));
 
-            
-            var rows = ConstructRowsFromModel(this, RowModel, Objects, RowDistance);
-            var Header = ConstructHeader(this, RowModel, HeaderStrings);
+            SetObjectLists(Objects);
+            //var rows = ConstructRowsFromModel(this, RowModel, Objects, RowDistance);
+            //var Header = ConstructHeader(this, RowModel, HeaderStrings);
 
-            Content.Add(Header);
-            foreach (var row in rows)
-            {
-                Content.Add(row);
-            }
+            //Content.Add(Header);
+            //foreach (var row in rows)
+            //{
+            //    Content.Add(row);
+            //}
+
+
         }
 
         /// <summary>
@@ -136,6 +138,7 @@ namespace ConsoleBoard.BaseInterfaceElements
 
         public void SetObjectLists(List<T> objectsToDraw)
         {
+            Objects.Clear();
             Objects = objectsToDraw;
             this.Rect = new CRectangle(Rect.Position.X, Rect.Position.Y, RowModel.Rect.Width, RowModel.Rect.Height * (objectsToDraw.Count + 1));
 

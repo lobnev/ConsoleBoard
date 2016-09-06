@@ -68,7 +68,7 @@ namespace ConsoleBoard.Frame
         }
         public void Clear()
         {
-            _elementCollection.Clear();
+            _elementCollection = new List<Frame>();
         }
         public bool Contains(Frame item)
         {

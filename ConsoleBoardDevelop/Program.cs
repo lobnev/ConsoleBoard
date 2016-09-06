@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ConsoleBoard;
 using ConsoleBoard.BaseInterfaceElements;
@@ -19,10 +20,20 @@ namespace ConsoleBoardDevelop
             
             // TODO: задача размеров через проценты
             // TODO: возможность обновлять элемент отдельно. Когда они все обновляются консоль как попрыгайчик выглядит
+            //var consoleFrame = ConsoleFrame.Current();
 
+            TableTest();
+
+            
+
+            Console.ReadKey();
+        }
+        private static void TableTest()
+        {
             var tests = new List<TestDto>();
 
             var sampleTest = new TestDto();
+
             // создаем модель строки
             var rowModel = new Panel<TestDto>(sampleTest);
             rowModel.Rect = new CRectangle(0, 0, 60, 3);
@@ -36,22 +47,34 @@ namespace ConsoleBoardDevelop
             var testResult = new Indicator<TestDto>(sampleTest, t => t.Result.ToString());
             testResult.Rect = new CRectangle(130, 1, 10, 1);
 
-            rowModel.Children.Add(testName);
-            rowModel.Children.Add(testMessage);
-            rowModel.Children.Add(testStatus);
-            rowModel.Children.Add(testResult);
-            
+            rowModel.Content.Add(testName);
+            rowModel.Content.Add(testMessage);
+            rowModel.Content.Add(testStatus);
+            rowModel.Content.Add(testResult);
+
             // TODO: проблема в том, что если сунуть пустой массив, то при его изменении, внутренний объхект Objects таблицы не изменяется. Надо разобраться с этим.
 
             // создаем таблицу
             var table = new Table<TestDto>(tests, rowModel, new List<string>() {"Spec name", "Message", "Staus", "Result"});
-            table.Rect.Position = new CPoint(0,15);
+            table.Rect.Position = new CPoint(0, 15);
 
             tests = Tools.GetTestTestList();
-            table.SetObjectLists(tests);
-            table.Draw();
 
+            table.Draw();
             Console.ReadKey();
+
+            table.SetObjectLists(tests);
+            
+
+            for (int i = 0; i < 20; i++)
+            {
+                tests.ForEach(t => t.Messages.Add(new MessageDto() {Text = i.ToString()}));
+
+                tests[3].Messages.Add(new MessageDto() {Text = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"});
+
+                table.Draw();
+                Thread.Sleep(100);
+            }
         }
         private static void GenericElementsTest()
         {
@@ -69,9 +92,9 @@ namespace ConsoleBoardDevelop
             var testResult = new Indicator<TestDto>(test, t => t.Result.ToString());
             testResult.Rect = new CRectangle(70, 1, 10, 1);
 
-            testPanel.Children.Add(testName);
-            testPanel.Children.Add(testStatus);
-            testPanel.Children.Add(testResult);
+            testPanel.Content.Add(testName);
+            testPanel.Content.Add(testStatus);
+            testPanel.Content.Add(testResult);
 
             testPanel.Draw();
         }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleBoard", "ConsoleBoard\ConsoleBoard.csproj", "{7BC083E6-CC14-483B-A149-AFAAF16D69C0}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{5774F318-21E1-4F03-9F64-D36F798BFB8E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pie", "..\Pie\Pie\Pie.csproj", "{6F82331B-5E3A-4671-AB7E-15B1397D4887}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F4AB9F1B-2B18-4715-9D33-E21A5018DB89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleBoardTests", "ConsoleBoardTests\ConsoleBoardTests.csproj", "{D9B94AF8-C698-424C-8BD8-E94C21C859AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,11 +33,16 @@ Global
 		{6F82331B-5E3A-4671-AB7E-15B1397D4887}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F82331B-5E3A-4671-AB7E-15B1397D4887}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F82331B-5E3A-4671-AB7E-15B1397D4887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9B94AF8-C698-424C-8BD8-E94C21C859AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9B94AF8-C698-424C-8BD8-E94C21C859AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9B94AF8-C698-424C-8BD8-E94C21C859AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9B94AF8-C698-424C-8BD8-E94C21C859AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F82331B-5E3A-4671-AB7E-15B1397D4887} = {5774F318-21E1-4F03-9F64-D36F798BFB8E}
+		{D9B94AF8-C698-424C-8BD8-E94C21C859AD} = {F4AB9F1B-2B18-4715-9D33-E21A5018DB89}
 	EndGlobalSection
 EndGlobal

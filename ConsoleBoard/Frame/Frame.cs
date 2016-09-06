@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using ConsoleBoard.Helpers;
+using ConsoleBoard.BaseInterfaceElements;
 
 namespace ConsoleBoard.Frame
 {
@@ -91,10 +93,20 @@ namespace ConsoleBoard.Frame
         /// </summary>
         public virtual void Draw()
         {
-            foreach (var child in Content)
-            {
-                child.Draw();
-            }
+            //// создаем копию текущего контента на случай, если он будет изменен во время рисования
+            //var curContent = new Content(this);
+            //foreach (var frame in Content)
+            //{
+            //    curContent.Add(frame);
+            //}
+
+            //foreach (var frame in Content)
+            //{
+            //    frame.Draw();
+            //}
+
+            for(int i = 0; i < Content.Count; i++)
+                Content.ElementAt(i).Draw();
         }
 
         /// <summary>

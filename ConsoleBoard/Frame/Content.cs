@@ -66,6 +66,15 @@ namespace ConsoleBoard.Frame
                        $"Element '{item.GetType()}:{item.Rect}' isn`t fit to element '{Parent.GetType()}:{item.Rect}' object");
 
         }
+
+        public void AddRange(IEnumerable<Frame> items)
+        {
+            foreach (var frame in items)
+            {
+                this.Add(frame);
+            }
+        }
+
         public void Clear()
         {
             _elementCollection = new List<Frame>();
@@ -85,7 +94,7 @@ namespace ConsoleBoard.Frame
             item.Parent = null;
             return _elementCollection.Remove(item);
         }
-
+        
 
         /// <summary>
         /// TODO: Помещается ли внутренний элемент полностью в данный родительский?

@@ -4,6 +4,10 @@ using ConsoleBoard.Frame;
 
 namespace ConsoleBoard.BaseInterfaceElements
 {
+    public class Panel : Frame.Frame
+    {
+        
+    }
     public class Panel<T> : Frame<T>
     {
         //public override void Draw()
